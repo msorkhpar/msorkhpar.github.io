@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { isDarkishTheme } from '../../utils';
+import CONFIG from '../../../gitprofile.config';
 
 type HeadTagEditorProps = {
   googleAnalyticsId?: string;
@@ -19,10 +20,14 @@ const HeadTagEditor: React.FC<HeadTagEditorProps> = ({
 }) => {
   return (
     <Helmet>
+      <title>{CONFIG.seo.title}</title>
+      <meta name='description' content={CONFIG.seo.description} />
+      <meta itemProp='image' content={CONFIG.seo.imageURL} />
       <meta
         name="theme-color"
         content={isDarkishTheme(appliedTheme) ? '#000000' : '#ffffff'}
       />
+
       {googleAnalyticsId && (
         <>
           <script
@@ -40,6 +45,9 @@ gtag('config', '${googleAnalyticsId}');
           </script>
         </>
       )}
+      <script type="application/ld+json">
+          {JSON.stringify(CONFIG.seo.schema)}
+      </script>
     </Helmet>
   );
 };
