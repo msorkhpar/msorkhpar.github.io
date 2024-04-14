@@ -36,7 +36,7 @@ const CONFIG = {
   },
   seo: {
     title: 'Mohammad \'Mo\' Sorkhpar (msorkhpar), a Senior Software Engineer based in Dallas.',
-    description: 'Explore the portfolio of Mo Sorkhpar, a Dallas-based Senior Software Engineer with over 8 years of expertise in Java, Python, Spring Framework, and cloud technologies. A proud holder of a Master\'s in Computer Science from Indiana State University, Mo has contributed to innovative projects leveraging his diverse tech stack to solve complex challenges.',
+    description: 'Software Engineer, 8+ years in Java, Python, Spring, and cloud techs.',
     imageURL: 'https://raw.githubusercontent.com/msorkhpar/msorkhpar/main/Who-I-am.png',
     schema: {
       '@context': 'http://schema.org',
@@ -105,7 +105,7 @@ const CONFIG = {
     email: 'msorkhpar@outlook.com',
   },
   resume: {
-    fileUrl: 'https://sorkhpar.dev/Mo-Sorkhpar-Resume.pdf', // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: 'https://raw.githubusercontent.com/msorkhpar/msorkhpar/main/Mo-Sorkhpar-Resume.pdf', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'Java',
