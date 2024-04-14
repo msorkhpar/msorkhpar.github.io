@@ -38,4 +38,4 @@ jobs:
           CI: ''
         run: |
           echo "CLARITY_ID=${{ vars.CLARITY_ID }}" >> .env
-          npm CLARITY_ID=${{ vars.CLARITY_ID }} run build
+          CLARITY_ID=${{ vars.CLARITY_ID }} npm run build
