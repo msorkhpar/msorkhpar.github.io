@@ -83,6 +83,7 @@ export interface SanitizedExperience {
   from: string;
   to: string;
   companyLink?: string;
+  logo?: string;
   achievements?: Array<string>;
 }
 

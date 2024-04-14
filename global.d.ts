@@ -220,6 +220,7 @@ interface Experience {
   position?: string;
   from: string;
   to: string;
+  logo?: string;
   companyLink?: string;
 }
 
@@ -244,6 +245,10 @@ interface Publication {
   authors?: string;
   link?: string;
   description?: string;
+}
+
+interface Clarity {
+  id?: string;
 }
 
 interface GoogleAnalytics {
@@ -413,6 +418,11 @@ interface Config {
    * Resume
    */
   resume?: Resume;
+
+  /**
+   * Clarity config
+   */
+  clarity?: Clarity;
 
   /**
    * Google Analytics config

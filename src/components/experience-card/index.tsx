@@ -3,16 +3,18 @@ import { SanitizedExperience } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 
 const ListItem = ({
-                    time,
-                    position,
-                    company,
-                    companyLink,
-                    achievements
-                  }: {
+  time,
+  position,
+  company,
+  companyLink,
+  logo,
+  achievements,
+}: {
   time: React.ReactNode;
   position?: React.ReactNode;
   company?: React.ReactNode;
   companyLink?: string;
+  logo?: string;
   achievements?: Array<string>;
 }) => (
   <li className="mb-5 ml-4">
@@ -21,26 +23,34 @@ const ListItem = ({
       style={{ left: '-4.5px' }}
     ></div>
     <div className="my-0.5 text-xs">{time}</div>
-
-    <h3 className="font-extrabold">{position}</h3>
-    <div className="mb-1 font-semibold">
-      <a href={companyLink} target="_blank" rel="noreferrer">
-        {company}
-      </a>
+    <div className="grid grid-cols-3">
+      <div className="col-span-2">
+        <h3 className="font-extrabold mt-1 mb-1"> {position}</h3>
+        <div className="mb-1 font-semibold">
+          <a href={companyLink} target="_blank" rel="noreferrer">
+            {company}
+          </a>
+        </div>
+      </div>
+      <div className="col-span-1 absolute right-0">
+        {logo && <img src={logo} className="h-12 w-15" />}
+      </div>
     </div>
     <div>
       {achievements &&
-        achievements.map((achievement,index) => (
-          <p className="mb-0.5" key={index}>• {achievement}</p>
+        achievements.map((achievement, index) => (
+          <p className="mb-0.5" key={index}>
+            • {achievement}
+          </p>
         ))}
     </div>
   </li>
 );
 
 const ExperienceCard = ({
-                          experiences,
-                          loading
-                        }: {
+  experiences,
+  loading,
+}: {
   experiences: SanitizedExperience[];
   loading: boolean;
 }) => {
@@ -52,15 +62,15 @@ const ExperienceCard = ({
           key={index}
           time={skeleton({
             widthCls: 'w-5/12',
-            heightCls: 'h-4'
+            heightCls: 'h-4',
           })}
           position={skeleton({
             widthCls: 'w-6/12',
             heightCls: 'h-4',
-            className: 'my-1.5'
+            className: 'my-1.5',
           })}
           company={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
-        />
+        />,
       );
     }
 
@@ -78,7 +88,7 @@ const ExperienceCard = ({
             )}
           </h5>
         </div>
-        <div className="text-base-content text-opacity-60">
+        <div className="text-base-content text-opacity-85">
           <ol className="relative border-l border-base-300 border-opacity-30 my-2 mx-4">
             {loading ? (
               renderSkeleton()
@@ -95,6 +105,7 @@ const ExperienceCard = ({
                         ? experience.companyLink
                         : undefined
                     }
+                    logo={experience.logo}
                     achievements={experience.achievements}
                   />
                 ))}

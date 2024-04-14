@@ -105,7 +105,7 @@ const CONFIG = {
     email: 'msorkhpar@outlook.com',
   },
   resume: {
-    fileUrl: 'https://sorkhpar.dev/Mo-Sorkhpar-Resume.pdf' // Empty fileUrl will hide the `Download Resume` button.
+    fileUrl: 'https://sorkhpar.dev/Mo-Sorkhpar-Resume.pdf', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
     'Java',
@@ -145,9 +145,10 @@ const CONFIG = {
   experiences: [
     {
       company: 'Indiana State University',
-      position: 'Graduate Research Assistant',
+      position: 'Research Assistant',
       from: '08/2022',
       to: '05/2024',
+      logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
       achievements: [
         'Spearheaded the integration of Wikidata and Wikipedia dumps to create a comprehensive dataset for graph entity summarization, utilizing Java, Python, Neo4j, Linux, and AWS to build a new standard dataset for machine learning research in graph summarization.',
@@ -160,6 +161,7 @@ const CONFIG = {
       position: 'Senior Software Engineer',
       from: '10/2021',
       to: '07/2022',
+      logo: '/logos/2.png',
       companyLink: 'https://intellias.com',
       achievements: [
         'Developed a reactive microservices-based sales platform for a telecom’s ePOS system using Kotlin, Spring, MongoDB, Oracle DB, Kubernetes, and Apache Wicket, enhancing operational efficiency across 3,000 retail branches.',
@@ -172,6 +174,7 @@ const CONFIG = {
       position: 'Senior Software Engineer',
       from: '03/2020',
       to: '10/2021',
+      logo: '/logos/3.png',
       companyLink: 'https://routetitan.com',
       achievements: [
         'Spearheaded the back-end development of a Route Optimizer application, enhancing delivery efficiency by solving up to 5000 vehicle routing problems daily with Java, Quarkus, PostgreSQL, MongoDB, and Stripe API. Achieved a groundbreaking improvement in system performance, reducing load times from 1800ms to 200ms.',
@@ -185,6 +188,7 @@ const CONFIG = {
       position: 'Senior Software Engineer',
       from: '12/2016',
       to: '01/2020',
+      logo: '/logos/4.png',
       companyLink: 'https://www.farazpardazan.com',
       achievements: [
         'Delivered the Hamrahcard Payment Assistant application, overseeing its growth to over 12 million users and managing 2 million daily financial transactions. This marked a significant contribution to the company’s portfolio and user base expansion.',
@@ -199,6 +203,7 @@ const CONFIG = {
       position: 'Java Back-end Developer',
       from: '01/2015',
       to: '11/2016',
+      logo: '/logos/5.png',
       companyLink: 'https://www.partgames.com',
       achievements: [
         'Crafted a high-performance back-end service for an online physics game with 230K players, utilizing Java, Spring, MySQL, Redis, Vaadin, and WebSocket. Introduced comprehensive features, including real-time interactions, payment management, and a versatile back-office system for user and parameter management.',
@@ -238,6 +243,9 @@ const CONFIG = {
     username: '', // to hide blog section, keep it empty
     limit: 0, // How many articles to display. Max is 10.
   },
+  clarity: {
+    id: '', // Clarity analytics tracking id. e.g. '
+  },
   googleAnalytics: {
     id: 'G-RJ2GES11E6', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
   },
@@ -247,7 +255,7 @@ const CONFIG = {
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'dark',
+    defaultTheme: 'procyon',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
@@ -299,13 +307,11 @@ const CONFIG = {
 
     // Custom theme, applied to `procyon` theme
     customTheme: {
-      primary: '#fc055b',
-      secondary: '#219aaf',
-      accent: '#e8d03a',
-      neutral: '#2A2730',
-      'base-100': '#E3E3ED',
-      '--rounded-box': '3rem',
-      '--rounded-btn': '3rem',
+      primary: 'rgba(113,206,109,0.68)',
+      'base-100': 'rgba(31,31,37,0.09)',
+      'base-400': 'rgba(233,233,253,0.09)',
+      '--rounded-box': '1rem',
+      '--rounded-btn': '1rem',
     },
   },
 
