@@ -43,7 +43,7 @@ jobs:
 
       - name: Build with vite
         env:
-          CLARITY_ID: ${{ vars.CLARITY_ID }}
+          CLARITY_ID: ${{ env.CLARITY_ID }}
         run: |
           echo CLARITY_ID=$CLARITY_ID >> .env
           npm run build
