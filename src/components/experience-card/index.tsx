@@ -17,7 +17,7 @@ const ListItem = ({
   logo?: string;
   achievements?: Array<string>;
 }) => (
-  <li className="mb-5 ml-4">
+  <li className="mb-10 ml-4">
     <div
       className="absolute w-2 h-2 bg-base-300 rounded-full border border-base-300 mt-1.5"
       style={{ left: '-4.5px' }}
