@@ -17,17 +17,18 @@ const ListItem = ({
   logo?: string;
   achievements?: Array<string>;
 }) => (
-  <li className="mb-10 grid grid-cols-1 md:grid-cols-7 lg:grid-cols-9 xl:grid-cols-14">
-    <div className="col-span-1 lg:col-span-1 p-1 flex items-center">
-      {logo && <img src={logo} className="h-[3rem] lg:h-[4rem] xl:h-[4rem]" />}
+  <li className="mb-5 grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-9 2xl:grid-cols-9">
+    <div
+      className="col-span-1 p-1 mr-3 flex items-center">
+      <a href={companyLink} target="_blank" rel="noreferrer">
+        {logo && <img src={logo} className="h-[3rem] lg:h-[3.5rem] xl:h-[4rem] 2xl:h-[4.5rem]" />}
+      </a>
     </div>
-    <div className="col-span-1 md:col-span-6 lg:col-span-8 xl:col-span-13">
+    <div className="col-span-1 md:col-span-5 lg:col-span-5 xl:col-span-8 2xl:col-span-8">
       <div className="my-0.5 text-xs">{time}</div>
       <h3 className="font-extrabold mt-1"> {position}</h3>
       <div className="mb-1 font-semibold">
-        <a href={companyLink} target="_blank" rel="noreferrer">
           {company}
-        </a>
       </div>
       <div>
         {achievements &&
