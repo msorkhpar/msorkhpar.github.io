@@ -17,32 +17,26 @@ const ListItem = ({
   logo?: string;
   achievements?: Array<string>;
 }) => (
-  <li className="mb-10 ml-4">
-    <div
-      className="absolute w-2 h-2 bg-base-300 rounded-full border border-base-300 mt-1.5"
-      style={{ left: '-4.5px' }}
-    ></div>
-    <div className="my-0.5 text-xs">{time}</div>
-    <div className="grid grid-cols-3">
-      <div className="col-span-2">
-        <h3 className="font-extrabold mt-1 mb-1"> {position}</h3>
-        <div className="mb-1 font-semibold">
-          <a href={companyLink} target="_blank" rel="noreferrer">
-            {company}
-          </a>
-        </div>
-      </div>
-      <div className="col-span-1 absolute right-0">
-        {logo && <img src={logo} className="h-12 w-15" />}
-      </div>
+  <li className="mb-10 grid grid-cols-1 md:grid-cols-7 lg:grid-cols-9 xl:grid-cols-14">
+    <div className="col-span-1 lg:col-span-1 p-1 flex items-center">
+      {logo && <img src={logo} className="h-[3rem] lg:h-[4rem] xl:h-[4rem]" />}
     </div>
-    <div>
-      {achievements &&
-        achievements.map((achievement, index) => (
-          <p className="mb-0.5" key={index}>
-            • {achievement}
-          </p>
-        ))}
+    <div className="col-span-1 md:col-span-6 lg:col-span-8 xl:col-span-13">
+      <div className="my-0.5 text-xs">{time}</div>
+      <h3 className="font-extrabold mt-1"> {position}</h3>
+      <div className="mb-1 font-semibold">
+        <a href={companyLink} target="_blank" rel="noreferrer">
+          {company}
+        </a>
+      </div>
+      <div>
+        {achievements &&
+          achievements.map((achievement, index) => (
+            <p className="mb-0.5" key={index}>
+              • {achievement}
+            </p>
+          ))}
+      </div>
     </div>
   </li>
 );
@@ -84,12 +78,14 @@ const ExperienceCard = ({
             {loading ? (
               skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
             ) : (
-              <span className="text-base-content opacity-70">Experience</span>
+              <span className="text-base-content opacity-70">
+                Work Experience
+              </span>
             )}
           </h5>
         </div>
         <div className="text-base-content text-opacity-85">
-          <ol className="relative border-l border-base-300 border-opacity-30 my-2 mx-4">
+          <ol className="relative border-base-300 border-opacity-30 my-2 mx-4">
             {loading ? (
               renderSkeleton()
             ) : (
