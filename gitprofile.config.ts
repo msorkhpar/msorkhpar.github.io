@@ -14,18 +14,25 @@ const CONFIG = {
     github: {
       display: true, // Display GitHub projects?
       header: 'Github Projects',
-      mode: 'automatic', // Mode can be: 'automatic' or 'manual'
+      mode: 'manual', // Mode can be: 'automatic' or 'manual'
       automatic: {
-        sortBy: 'stars', // Sort projects by 'stars' or 'updated'
+        sortBy: 'updated', // Sort projects by 'stars' or 'updated'
         limit: 4, // How many projects to display.
         exclude: {
           forks: true, // Forked projects will not be displayed if set to true.
-          projects: [], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
+          projects: [
+          ], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
       manual: {
         // Properties for manually specifying projects
-        projects: [], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
+        projects: [
+          'msorkhpar/wiki-entity-summarization',
+          'msorkhpar/wiki-entity-summarization-preprocessor',
+          'msorkhpar/wiki-entity-summarization-toolkit',
+          'msorkhpar/neo4j-bootcamp',
+          'msorkhpar/energy-barrier-problem',
+        ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
     external: {
@@ -145,7 +152,7 @@ const CONFIG = {
   experiences: [
     {
       company: 'Indiana State University',
-      position: 'Research Assistant',
+      position: 'Senior Software Engineer',
       from: '08/2022',
       to: '05/2024',
       logo: '/logos/1.png',
@@ -153,6 +160,7 @@ const CONFIG = {
       achievements: [
         'Spearheaded the integration of Wikidata and Wikipedia dumps to create a comprehensive dataset for graph entity summarization, utilizing Java, Python, Neo4j, Linux, and AWS to build a new standard dataset for machine learning research in graph summarization.',
         'Advanced an RGCN-based entity summarization algorithm in Knowledge Graphs with PyTorch and Optuna.',
+        'Collaborated in developing a graph-aware unsupervised entity summarization model.',
         'Developed a Mixed Integer solver for the optimal vertex ordering problem in bipartite graphs, applying Python, NetworkX, and PostgreSQL, translating complex models into practical solutions.',
       ],
     },
@@ -180,7 +188,7 @@ const CONFIG = {
         'Spearheaded the back-end development of a Route Optimizer application, enhancing delivery efficiency by solving up to 5000 vehicle routing problems daily with Java, Quarkus, PostgreSQL, MongoDB, and Stripe API. Achieved a groundbreaking improvement in system performance, reducing load times from 1800ms to 200ms.',
         'Persuaded the team to adopt a strategic pivot to a Product-as-a-Service (PaaS) model, fostering Routetitan’s growth by optimizing resource allocation, aligning business processes with market demands, and establishing an innovative and competitive path.',
         'Led the deployment architecture overhaul using Terraform and Gitlab CI, integrating Hetzner-Cloud, GCP, and AWS, which optimized deployment processes and significantly cut operational costs.',
-        'Note:  I continued working with this company till 06/2022 as a part-time consultant.',
+        'Note: I continued working with this company till 06/2022 as a part-time software consultant.',
       ],
     },
     {
@@ -216,17 +224,26 @@ const CONFIG = {
     {
       institution: 'Indiana State University',
       degree: 'Master of Science in Computer Science',
-      from: '08/2022',
-      to: '05/2024',
+      from: '',
+      to: '',
     },
     {
       institution: 'University of Mazandaran',
       degree: 'Bachelor of Engineering in Information Technology',
-      from: '2012',
-      to: '2016',
+      from: '',
+      to: '',
     },
   ],
   publications: [
+    {
+      title: 'Wiki Entity Summarization Benchmark',
+      conferenceName: 'Preprint',
+      journalName: '',
+      authors: 'Saeedeh Javadi*, Atefeh Moradan*, Mohammad Sorkhpar*, Klim Zaporojets, Davide Mottin & Ira Assent (* as equal contribution)',
+      link: 'https://doi.org/10.48550/arXiv.2406.08435',
+      description:
+        'Entity summarization aims to compute concise summaries for entities in knowledge graphs. Existing datasets and benchmarks are often limited to a few hundred entities and discard graph structure in source knowledge graphs. This limitation is particularly pronounced when it comes to ground-truth summaries, where there exist only a few labeled summaries for evaluation and training. We propose WikES, a comprehensive benchmark comprising of entities, their summaries, and their connections. Additionally, WikES features a dataset generator to test entity summarization algorithms in different areas of the knowledge graph. Importantly, our approach combines graph algorithms and NLP models as well as different data sources such that WikES does not require human annotation, rendering the approach cost-effective and generalizable to multiple domains. Finally, WikES is scalable and capable of capturing the complexities of knowledge graphs in terms of topology and semantics. WikES features existing datasets for comparison. Empirical studies of entity summarization methods confirm the usefulness of our benchmark.'
+    },
     {
       title: 'Vertex Ordering with Precedence Constraints',
       conferenceName: 'FCT 2023',
