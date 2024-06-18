@@ -158,7 +158,9 @@ const CONFIG = {
       logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
       achievements: [
-        'Spearheaded the integration of Wikidata and Wikipedia dumps to create a comprehensive dataset for graph entity summarization, utilizing Java, Python, Neo4j, Linux, and AWS to build a new standard dataset for machine learning research in graph summarization.',
+        'Led the development of a dataset generator for entity summarization (ES) and link prediction, processing 150GB of raw data from Wikipedia and Wikidata dumps to create a Knowledge Graph with 330M edges.', 
+        'Implemented efficient algorithms for ETL processes, leveraging PostgreSQL, Neo4j, Docker, and AWS to manage complex data structures and ensure optimal performance.',
+        'Showcased expertise in a diverse stack, including Java, Spring Boot, and Python, delivering a robust solution available on GitHub.',
         'Advanced an RGCN-based entity summarization algorithm in Knowledge Graphs with PyTorch and Optuna.',
         'Collaborated in developing a graph-aware unsupervised entity summarization model.',
         'Developed a Mixed Integer solver for the optimal vertex ordering problem in bipartite graphs, applying Python, NetworkX, and PostgreSQL, translating complex models into practical solutions.',
