@@ -152,16 +152,14 @@ const CONFIG = {
   experiences: [
     {
       company: 'Indiana State University',
-      position: 'Senior Software Engineer',
-      from: '08/2022',
-      to: '05/2024',
+      position: 'Senior Software Engineer (volunteer)',
+      from: '04/2023',
+      to: '06/2024',
       logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
       achievements: [
-        'Led the development of a dataset generator for entity summarization (ES) and link prediction, processing 150GB of raw data from Wikipedia and Wikidata dumps to create a Knowledge Graph with 330M edges.', 
-        'Implemented efficient algorithms for ETL processes, leveraging PostgreSQL, Neo4j, Docker, and AWS to manage complex data structures and ensure optimal performance.',
+        'Led the development of a dataset generator for entity summarization (ES), leading an ETL process that extracted 150GB of raw data from Wikipedia and Wikidata dumps. This involved transforming data using advanced NLP and graph sampling techniques and loading the refined data into PostgreSQL and Neo4j databases, resulting in a knowledge graph with 58 million nodes and 330 million edges. ', 
         'Showcased expertise in a diverse stack, including Java, Spring Boot, and Python, delivering a robust solution available on GitHub.',
-        'Advanced an RGCN-based entity summarization algorithm in Knowledge Graphs with PyTorch and Optuna.',
         'Collaborated in developing a graph-aware unsupervised entity summarization model.',
         'Developed a Mixed Integer solver for the optimal vertex ordering problem in bipartite graphs, applying Python, NetworkX, and PostgreSQL, translating complex models into practical solutions.',
       ],
