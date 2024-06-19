@@ -153,15 +153,16 @@ const CONFIG = {
     {
       company: 'Indiana State University',
       position: 'Senior Software Engineer (volunteer)',
-      from: '04/2023',
+      from: '08/2022',
       to: '06/2024',
       logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
       achievements: [
-        'Led the development of a dataset generator for entity summarization (ES), leading an ETL process that extracted 150GB of raw data from Wikipedia and Wikidata dumps. This involved transforming data using advanced NLP and graph sampling techniques and loading the refined data into PostgreSQL and Neo4j databases, resulting in a knowledge graph with 58 million nodes and 330 million edges. ', 
-        'Showcased expertise in a diverse stack, including Java, Spring Boot, and Python, delivering a robust solution available on GitHub.',
-        'Collaborated in developing a graph-aware unsupervised entity summarization model.',
-        'Developed a Mixed Integer solver for the optimal vertex ordering problem in bipartite graphs, applying Python, NetworkX, and PostgreSQL, translating complex models into practical solutions.',
+        'Led the development of a large-scale dataset generator, orchestrating an ETL process that extracted 150GB of raw data, transformed data using advanced NLP techniques and graph sampling algorithms to optimize data quality and relevance, and loaded the refined data into databases, resulting in a high-quality knowledge graph with 58 million nodes and 330 million edges.',
+        'Developed an unsupervised entity summarization model leveraging Relational Graph Convolutional Networks (RGCN), achieving a 5% increase in accuracy by utilizing indirect relationships. (Under review)',
+        'Collaborated in developing a graph-aware unsupervised model, leveraging knowledge graph structures and multi-semantic information, achieving a 6% increase in accuracy over existing models. (Under review)',
+        'Developed a Mixed Integer Programming solver to address the optimal vertex ordering problem in bipartite graphs, leveraging Python, NetworkX, and PostgreSQL to translate complex models into efficient, real-world solutions.',
+        'Graduate assistant and instructor of Linux & Networking course.'
       ],
     },
     {
