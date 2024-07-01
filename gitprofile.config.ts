@@ -153,7 +153,7 @@ const CONFIG = {
     {
       company: 'Indiana State University',
       position: 'Senior Software Engineer (volunteer)',
-      from: '08/2022',
+      from: '04/2023',
       to: '06/2024',
       logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
@@ -162,7 +162,6 @@ const CONFIG = {
         'Developed an unsupervised entity summarization model leveraging Relational Graph Convolutional Networks (RGCN), achieving a 5% increase in accuracy by utilizing indirect relationships. (Under review)',
         'Collaborated in developing a graph-aware unsupervised model, leveraging knowledge graph structures and multi-semantic information, achieving a 6% increase in accuracy over existing models. (Under review)',
         'Developed a Mixed Integer Programming solver to address the optimal vertex ordering problem in bipartite graphs, leveraging Python, NetworkX, and PostgreSQL to translate complex models into efficient, real-world solutions.',
-        'Graduate assistant and instructor of Linux & Networking course.'
       ],
     },
     {
