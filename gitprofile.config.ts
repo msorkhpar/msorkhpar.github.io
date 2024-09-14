@@ -150,6 +150,16 @@ const CONFIG = {
     name: 'Mo Sorkhpar Portfolio',
   },
   experiences: [
+     {
+      company: 'Ascendion',
+      position: 'Senior Java Developer',
+      from: '09/2024',
+      to: 'Present',
+      logo: '/logos/0.jpeg',
+      companyLink: 'https://ascendion.com/',
+      achievements: [
+      ],
+    },
     {
       company: 'Indiana State University',
       position: 'Senior Software Engineer (volunteer)',
