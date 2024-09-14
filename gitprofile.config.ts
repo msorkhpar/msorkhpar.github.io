@@ -164,7 +164,7 @@ const CONFIG = {
       company: 'Indiana State University',
       position: 'Senior Software Engineer (volunteer)',
       from: '04/2023',
-      to: '06/2024',
+      to: '08/2024',
       logo: '/logos/1.png',
       companyLink: 'https://cs.indstate.edu',
       achievements: [
