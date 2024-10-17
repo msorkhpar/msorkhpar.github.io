@@ -161,8 +161,8 @@ const CONFIG = {
       achievements: [
         'Contributed to existing card authentication systems that process ISO-8583 messages for one of the top 5 U.S. Credit Card Companies serving over 10 partners. Familiarizing with complex transaction routing logic, authentication mechanisms, and format conversion across multiple partnerships and payload types, including Mastercard, Visa, and others.',
         'Participated as a Scrum team member in adopting a major project to integrate a new card network, actively deploying, cloning, modifying, testing, and refactoring existing flows. Ensured new payload and network requirements aligned seamlessly with current architecture while maintaining system integrity.',
-        'Developed an innovative IntelliJ plugin to interpret and auto-complete the internal custom CI/CD syntax.'
-        'Utilized Java 17, Spring, jPOS (ISO-8583), AWS, BDD with Cucumber, JUnit, Shell scripting, Docker, Maven, Wiremock, Splunk, Mockito,  Jira, Confluence, and GitHub.'
+        'Developed an innovative IntelliJ plugin to interpret and auto-complete the internal custom CI/CD syntax.',
+        'Utilized Java 17, Spring, jPOS (ISO-8583), AWS, BDD with Cucumber, JUnit, Shell scripting, Docker, Maven, Wiremock, Splunk, Mockito,  Jira, Confluence, and GitHub.',
       ],
     },
     {
