@@ -64,7 +64,7 @@ const CONFIG = {
       jobTitle: "Senior Software Engineer",
       worksFor: {
         "@type": "Organization",
-        name: "Indiana State University"
+        name: "Ascendion"
       },
       alumniOf: {
         "@type": "EducationalOrganization",
@@ -251,7 +251,7 @@ const CONFIG = {
     {
       company: "Rahkar Novin",
       position: "Software Developer",
-      from: "01/2014",
+      from: "06/2014",
       to: "12/2014",
       logo: "/logos/7.png",
       companyLink: "https://www.rahkarnovin.com",
