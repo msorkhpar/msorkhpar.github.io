@@ -42,7 +42,7 @@ const CONFIG = {
   },
   seo: {
     title: "Mohammad 'Mo' Sorkhpar (msorkhpar), a Senior Software Engineer based in Dallas.",
-    description: "Software Engineer, 8+ years in Java, Python, Spring, and cloud techs.",
+    description: "Software Engineer, 10+ years in Java, Python, Spring, and cloud techs.",
     imageURL: "https://raw.githubusercontent.com/msorkhpar/msorkhpar/main/Who-I-am.png",
     schema: {
       "@context": "http://schema.org",
@@ -246,6 +246,17 @@ const CONFIG = {
       achievements: [
         "Crafted a high-performance back-end service for an online physics game with 230K players, utilizing Java, Spring, MySQL, Redis, Vaadin, and WebSocket. Introduced comprehensive features, including real-time interactions, payment management, and a versatile back-office system for user and parameter management.",
         "Created and commercialized a scalable leaderboard management service, handling up to 5,000 requests per minute for 7 multiplayer games. This innovation extended beyond studio use, offering an API to external services and marking a significant contribution to the studio’s technological portfolio."
+      ]
+    },
+    {
+      company: "Rahkar Novin",
+      position: "Software Developer",
+      from: "01/2014",
+      to: "12/2014",
+      logo: "/logos/7.png",
+      companyLink: "https://www.rahkarnovin.com",
+      achievements: [
+        "Developed and launched a Groupon-style customer loyalty platform connecting 200+ local stores with organizations, featuring RFID-based membership tracking and a multi-tier rewards system."
       ]
     }
   ],
