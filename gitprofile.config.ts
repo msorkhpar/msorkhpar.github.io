@@ -159,12 +159,16 @@ const CONFIG = {
       from: "09/2024",
       to: "Present",
       logo: "/logos/0.png",
-      companyLink: "https://ascendion.com/",
+      companyLink: "https://ascendion.com",
       achievements: [
-        "Contributed to existing card authentication systems that process ISO-8583 messages for one of the top 5 U.S. Credit Card Companies serving over 10 partners. Familiarizing with complex transaction routing logic, authentication mechanisms, and format conversion across multiple partnerships and payload types, including Mastercard, Visa, and others.",
-        "Participated as a Scrum team member in adopting a major project to integrate a new card network, actively deploying, cloning, modifying, testing, and refactoring existing flows. Ensured new payload and network requirements aligned seamlessly with current architecture while maintaining system integrity.",
-        "Developed an innovative IntelliJ plugin to interpret and auto-complete the internal custom CI/CD syntax.",
-        "Utilized Java 17, Spring, jPOS (ISO-8583), AWS, BDD with Cucumber, JUnit, Shell scripting, Docker, Maven, Wiremock, Splunk, Mockito,  Jira, Confluence, and GitHub."
+        "Integrated Discover Network into the existing card authorization system, ensuring ISO-8583 message processing aligned with network requirements and maintaining system integrity.",
+        "Identified a critical defect in production code through proactive review, preventing significant financial losses.",
+        "Pioneered end-to-end transaction simulation environment using JMeter and WireMock to reproduce complex production edge-case scenarios, becoming the first team member to present defects through comprehensive local testing.",
+        "Led the migration of runtime secret fetching using AWS Java V2 Secrets Manager SDK, enhancing security and efficiency.", 
+        "Conducted knowledge transfer sessions for the new joiners to expedite their ability to take ownership of the tasks.",
+        "Automated repetitive web-based tasks using Selenium Python, reducing manual workload and increasing efficiency.",
+        "Extended developer-friendly shell script functions to facilitate 60+ team members' daily routines.",
+        "Leveraged Java 17, Spring, jPOS (ISO-8583), PostgreSQL, and AWS to build robust applications, improving system performance and reliability. Employed BDD with Cucumber, JUnit, and Mockito for effective testing, and used Docker, Maven, Gradle, and Jenkins for efficient CI/CD processes."
       ]
     },
     {
@@ -177,7 +181,6 @@ const CONFIG = {
       achievements: [
         "Led the development of a large-scale dataset generator, orchestrating an ETL process that extracted 150GB of raw data, transformed data using advanced NLP techniques and graph sampling algorithms to optimize data quality and relevance, and loaded the refined data into databases, resulting in a high-quality knowledge graph with 58 million nodes and 330 million edges.",
         "Developed an unsupervised entity summarization model leveraging Relational Graph Convolutional Networks (RGCN), achieving a 5% increase in accuracy by utilizing indirect relationships. (WSDM 2025)",
-        "Collaborated in developing a graph-aware unsupervised model, leveraging knowledge graph structures and multi-semantic information, achieving a 6% increase in accuracy over existing models. (Under review)"
       ]
     },
     {
