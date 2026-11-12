@@ -4,7 +4,17 @@ on:
   push:
     branches: [main]
 
+  # Manual "Run workflow" button in the Actions tab.
   workflow_dispatch:
+
+  # Rebuild weekly (Monday 06:17 UTC) so course changes reach the sitemap
+  # without touching this repo.
+  schedule:
+    - cron: '17 6 * * 1'
+
+  # Lets a course repo trigger a rebuild right after it changes (optional).
+  repository_dispatch:
+    types: [course-updated]
 
 permissions:
   contents: read
@@ -40,6 +50,25 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check out course repositories
+        run: |
+          mkdir -p ../courses
+          for repo in ISO-8583-jPOS-tutorial \
+                      Claude-Certification-Preparation-Developer-to-Architect \
+                      Claude-senior-java-engineer; do
+            git clone --depth 1 "https://github.com/msorkhpar/$repo.git" "../courses/$repo"
+          done
+
+      # Reads each course's own GitHub Pages workflow, replays its build steps,
+      # and lists every page that workflow publishes.
+      - name: Generate sitemap.xml
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 scripts/generate_sitemap.py public/sitemap.xml . \
+            ../courses/ISO-8583-jPOS-tutorial \
+            ../courses/Claude-Certification-Preparation-Developer-to-Architect \
+            ../courses/Claude-senior-java-engineer
 
       - name: Build with vite
         run: |
