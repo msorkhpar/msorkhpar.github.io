@@ -56,6 +56,7 @@ jobs:
           mkdir -p ../courses
           for repo in ISO-8583-jPOS-tutorial \
                       Claude-Certification-Preparation-Developer-to-Architect \
+                      integer-programming-google-or-tools \
                       Claude-senior-java-engineer; do
             git clone --depth 1 "https://github.com/msorkhpar/$repo.git" "../courses/$repo"
           done
@@ -68,6 +69,7 @@ jobs:
           python3 scripts/generate_sitemap.py public/sitemap.xml . \
             ../courses/ISO-8583-jPOS-tutorial \
             ../courses/Claude-Certification-Preparation-Developer-to-Architect \
+            ../courses/integer-programming-google-or-tools \
             ../courses/Claude-senior-java-engineer
 
       - name: Build with vite
