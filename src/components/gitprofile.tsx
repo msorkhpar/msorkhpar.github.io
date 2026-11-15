@@ -8,13 +8,10 @@ import {
   INVALID_GITHUB_USERNAME_ERROR,
   setTooManyRequestError,
 } from '../constants/errors';
-import { HelmetProvider } from 'react-helmet-async';
 import '../assets/index.css';
 import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
 import { SanitizedConfig } from '../interfaces/sanitized-config';
 import ErrorPage from './error-page';
-import HeadTagEditor from './head-tag-editor';
-import { DEFAULT_THEMES } from '../constants/default-themes';
 import ThemeChanger from './theme-changer';
 import { BG_COLOR } from '../constants';
 import AvatarCard from './avatar-card';
@@ -34,16 +31,54 @@ import PublicationCard from './publication-card';
 import BannerCard from './banner-card';
 
 /**
- * Renders the GitProfile component.
+ * Formats the GitHub rate limit reset time for display.
  *
- * @param {Object} config - the configuration object
- * @return {JSX.Element} the rendered GitProfile component
+ * The `x-ratelimit-reset` header is not always readable (it requires
+ * `Access-Control-Expose-Headers` cross-origin, and is absent on non-rate-limit
+ * responses), so this returns null rather than throwing when it is unusable.
+ *
+ * @param {AxiosError} error - the axios error carrying the response headers
+ * @return {string | null} humanized reset time, or null when unavailable
  */
-const GitProfile = ({ config }: { config: Config }) => {
-  const [sanitizedConfig] = useState<SanitizedConfig | Record<string, never>>(
-    getSanitizedConfig(config),
+const formatRateLimitReset = (error: AxiosError): string | null => {
+  const rawReset = error.response?.headers?.['x-ratelimit-reset'];
+
+  if (rawReset === undefined || rawReset === null || rawReset === '') {
+    return null;
+  }
+
+  const resetTimestamp = Number(rawReset);
+
+  if (!Number.isFinite(resetTimestamp)) {
+    return null;
+  }
+
+  try {
+    return formatDistance(new Date(resetTimestamp * 1000), new Date(), {
+      addSuffix: true,
+    });
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Renders the profile once the config is known to be valid.
+ *
+ * Receiving an already-sanitized config means every read below is safe, so the
+ * hooks here never have to defend against a missing config.
+ *
+ * @param {Object} sanitizedConfig - the validated configuration object
+ * @return {JSX.Element} the rendered profile
+ */
+const GitProfileContent = ({
+  sanitizedConfig,
+}: {
+  sanitizedConfig: SanitizedConfig;
+}) => {
+  const [theme, setTheme] = useState<string>(() =>
+    getInitialTheme(sanitizedConfig.themeConfig),
   );
-  const [theme, setTheme] = useState<string>(DEFAULT_THEMES[0]);
   const [error, setError] = useState<CustomError | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -99,9 +134,31 @@ const GitProfile = ({ config }: { config: Config }) => {
     ],
   );
 
+  const handleError = useCallback((error: AxiosError | Error): void => {
+    console.error('Error:', error);
+
+    if (!(error instanceof AxiosError)) {
+      setError(GENERIC_ERROR);
+      return;
+    }
+
+    switch (error.response?.status) {
+      case 403:
+        setError(setTooManyRequestError(formatRateLimitReset(error)));
+        break;
+      case 404:
+        setError(INVALID_GITHUB_USERNAME_ERROR);
+        break;
+      default:
+        setError(GENERIC_ERROR);
+        break;
+    }
+  }, []);
+
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
+      setError(null);
 
       const response = await axios.get(
         `https://api.github.com/users/${sanitizedConfig.github.username}`,
@@ -130,192 +187,192 @@ const GitProfile = ({ config }: { config: Config }) => {
     sanitizedConfig.github.username,
     sanitizedConfig.projects.github.display,
     getGithubProjects,
+    handleError,
   ]);
 
   useEffect(() => {
-    if (Object.keys(sanitizedConfig).length === 0) {
-      setError(INVALID_CONFIG_ERROR);
-    } else {
-      setError(null);
-      setTheme(getInitialTheme(sanitizedConfig.themeConfig));
-      setupHotjar(sanitizedConfig.hotjar);
-      loadData();
-    }
+    setupHotjar(sanitizedConfig.hotjar);
+    // loadData is an async fetch that sets state. Satisfying set-state-in-effect
+    // here means moving data fetching out of the effect entirely (a data library
+    // or `use()`), which is a separate change from deriving theme/error above.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void loadData();
   }, [sanitizedConfig, loadData]);
 
   useEffect(() => {
-    theme && document.documentElement.setAttribute('data-theme', theme);
+    if (theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
   }, [theme]);
 
-  const handleError = (error: AxiosError | Error): void => {
-    console.error('Error:', error);
-
-    if (error instanceof AxiosError) {
-      try {
-        const reset = formatDistance(
-          new Date(error.response?.headers?.['x-ratelimit-reset'] * 1000),
-          new Date(),
-          { addSuffix: true },
-        );
-
-        if (typeof error.response?.status === 'number') {
-          switch (error.response.status) {
-            case 403:
-              setError(setTooManyRequestError(reset));
-              break;
-            case 404:
-              setError(INVALID_GITHUB_USERNAME_ERROR);
-              break;
-            default:
-              setError(GENERIC_ERROR);
-              break;
-          }
-        } else {
-          setError(GENERIC_ERROR);
-        }
-      } catch (innerError) {
-        setError(GENERIC_ERROR);
-      }
-    } else {
-      setError(GENERIC_ERROR);
-    }
-  };
-
   return (
-    <HelmetProvider>
-      <div className="fade-in h-screen">
-        {error ? (
-          <ErrorPage
-            status={error.status}
-            title={error.title}
-            subTitle={error.subTitle}
-          />
-        ) : (
-          <>
-            <HeadTagEditor
-              googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-              appliedTheme={theme}
-            />
-            <div className={`p-3 lg:p-10 min-h-full ${BG_COLOR}`}>
-              <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 rounded-box">
-                <div className="lg:col-span-2 col-span-1">
-                  <div className="grid grid-cols-1 gap-6">
-                    {!sanitizedConfig.themeConfig.disableSwitch && (
-                      <ThemeChanger
-                        theme={theme}
-                        setTheme={setTheme}
-                        loading={loading}
-                        themeConfig={sanitizedConfig.themeConfig}
-                      />
-                    )}
-                    <AvatarCard
-                      profile={profile}
+    <div className="fade-in h-screen">
+      {error ? (
+        <ErrorPage
+          status={error.status}
+          title={error.title}
+          subTitle={error.subTitle}
+        />
+      ) : (
+        <>
+          <div className={`p-3 lg:p-10 min-h-full ${BG_COLOR}`}>
+            <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 rounded-box">
+              <div className="lg:col-span-2 col-span-1">
+                <div className="grid grid-cols-1 gap-6">
+                  {!sanitizedConfig.themeConfig.disableSwitch && (
+                    <ThemeChanger
+                      theme={theme}
+                      setTheme={setTheme}
                       loading={loading}
-                      avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
-                      resumeFileUrl={sanitizedConfig.resume.fileUrl}
+                      themeConfig={sanitizedConfig.themeConfig}
                     />
-                    <DetailsCard
-                      profile={profile}
+                  )}
+                  <AvatarCard
+                    profile={profile}
+                    loading={loading}
+                    avatarRing={sanitizedConfig.themeConfig.displayAvatarRing}
+                    resumeFileUrl={sanitizedConfig.resume.fileUrl}
+                  />
+                  <DetailsCard
+                    profile={profile}
+                    loading={loading}
+                    github={sanitizedConfig.github}
+                    social={sanitizedConfig.social}
+                  />
+                  {sanitizedConfig.skills.length !== 0 && (
+                    <SkillCard
                       loading={loading}
-                      github={sanitizedConfig.github}
-                      social={sanitizedConfig.social}
+                      skills={sanitizedConfig.skills}
                     />
-                    {sanitizedConfig.skills.length !== 0 && (
-                      <SkillCard
-                        loading={loading}
-                        skills={sanitizedConfig.skills}
-                      />
-                    )}
-                    {sanitizedConfig.certifications.length !== 0 && (
-                      <CertificationCard
-                        loading={loading}
-                        certifications={sanitizedConfig.certifications}
-                      />
-                    )}
-                    {sanitizedConfig.educations.length !== 0 && (
-                      <EducationCard
-                        loading={loading}
-                        educations={sanitizedConfig.educations}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="lg:col-span-6 col-span-1">
-                  <div className="grid grid-cols-1 gap-6">
-                    <BannerCard
-                      banner={sanitizedConfig.banner}
+                  )}
+                  {sanitizedConfig.certifications.length !== 0 && (
+                    <CertificationCard
                       loading={loading}
+                      certifications={sanitizedConfig.certifications}
                     />
-                  </div>
-                  <div className="grid grid-cols-1 gap-6">
-                    {sanitizedConfig.experiences.length !== 0 && (
-                      <ExperienceCard
-                        loading={loading}
-                        experiences={sanitizedConfig.experiences}
-                      />
-                    )}
-                  </div>
+                  )}
+                  {sanitizedConfig.educations.length !== 0 && (
+                    <EducationCard
+                      loading={loading}
+                      educations={sanitizedConfig.educations}
+                    />
+                  )}
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-6 rounded-box mt-6">
+              <div className="lg:col-span-6 col-span-1">
                 <div className="grid grid-cols-1 gap-6">
-                  {sanitizedConfig.courses.display && (
-                    <CourseCard
-                      courses={sanitizedConfig.courses}
+                  <BannerCard
+                    banner={sanitizedConfig.banner}
+                    loading={loading}
+                  />
+                </div>
+                <div className="grid grid-cols-1 gap-6">
+                  {sanitizedConfig.experiences.length !== 0 && (
+                    <ExperienceCard
                       loading={loading}
-                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                    />
-                  )}
-                  {sanitizedConfig.projects.github.display && (
-                    <GithubProjectCard
-                      header={sanitizedConfig.projects.github.header}
-                      limit={sanitizedConfig.projects.github.automatic.limit}
-                      githubProjects={githubProjects}
-                      loading={loading}
-                      username={sanitizedConfig.github.username}
-                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                    />
-                  )}
-                  {sanitizedConfig.publications.length !== 0 && (
-                    <PublicationCard
-                      loading={loading}
-                      publications={sanitizedConfig.publications}
-                    />
-                  )}
-                  {sanitizedConfig.projects.external.projects.length !== 0 && (
-                    <ExternalProjectCard
-                      loading={loading}
-                      header={sanitizedConfig.projects.external.header}
-                      externalProjects={
-                        sanitizedConfig.projects.external.projects
-                      }
-                      googleAnalyticId={sanitizedConfig.googleAnalytics.id}
-                    />
-                  )}
-                  {sanitizedConfig.blog.display && (
-                    <BlogCard
-                      loading={loading}
-                      googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
-                      blog={sanitizedConfig.blog}
+                      experiences={sanitizedConfig.experiences}
                     />
                   )}
                 </div>
               </div>
             </div>
-            {sanitizedConfig.footer && (
-              <footer
-                className={`p-4 footer ${BG_COLOR} text-base-content footer-center`}
-              >
-                <div className="card compact bg-base-100 shadow">
-                  <Footer content={sanitizedConfig.footer} loading={loading} />
-                </div>
-              </footer>
-            )}
-          </>
-        )}
-      </div>
-    </HelmetProvider>
+            <div className="grid grid-cols-1 gap-6 rounded-box mt-6">
+              <div className="grid grid-cols-1 gap-6">
+                {sanitizedConfig.courses.display && (
+                  <CourseCard
+                    courses={sanitizedConfig.courses}
+                    loading={loading}
+                    googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                  />
+                )}
+                {sanitizedConfig.projects.github.display && (
+                  <GithubProjectCard
+                    header={sanitizedConfig.projects.github.header}
+                    limit={sanitizedConfig.projects.github.automatic.limit}
+                    githubProjects={githubProjects}
+                    loading={loading}
+                    googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                  />
+                )}
+                {sanitizedConfig.publications.length !== 0 && (
+                  <PublicationCard
+                    loading={loading}
+                    publications={sanitizedConfig.publications}
+                  />
+                )}
+                {sanitizedConfig.projects.external.projects.length !== 0 && (
+                  <ExternalProjectCard
+                    loading={loading}
+                    header={sanitizedConfig.projects.external.header}
+                    externalProjects={
+                      sanitizedConfig.projects.external.projects
+                    }
+                    googleAnalyticId={sanitizedConfig.googleAnalytics.id}
+                  />
+                )}
+                {sanitizedConfig.blog.display && (
+                  <BlogCard
+                    loading={loading}
+                    googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                    blog={sanitizedConfig.blog}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+          {sanitizedConfig.footer && (
+            <footer
+              className={`p-4 footer ${BG_COLOR} text-base-content footer-center`}
+            >
+              <div className="card card-sm bg-base-100 shadow-sm">
+                <Footer content={sanitizedConfig.footer} loading={loading} />
+              </div>
+            </footer>
+          )}
+        </>
+      )}
+    </div>
   );
+};
+
+/**
+ * Narrows a sanitized config to its populated form.
+ *
+ * `getSanitizedConfig` returns an empty object when the supplied config is
+ * unusable, which is the only signal that validation failed.
+ *
+ * @param {Object} config - the result of getSanitizedConfig
+ * @return {boolean} whether the config is populated
+ */
+const isValidConfig = (
+  config: SanitizedConfig | Record<string, never>,
+): config is SanitizedConfig => Object.keys(config).length !== 0;
+
+/**
+ * Renders the GitProfile component.
+ *
+ * Validation happens here so that an invalid config short-circuits to the error
+ * page before any hook that assumes a populated config is ever created.
+ *
+ * @param {Object} config - the configuration object
+ * @return {JSX.Element} the rendered GitProfile component
+ */
+const GitProfile = ({ config }: { config: Config }) => {
+  const [sanitizedConfig] = useState<SanitizedConfig | Record<string, never>>(
+    getSanitizedConfig(config),
+  );
+
+  if (!isValidConfig(sanitizedConfig)) {
+    return (
+      <ErrorPage
+        status={INVALID_CONFIG_ERROR.status}
+        title={INVALID_CONFIG_ERROR.title}
+        subTitle={INVALID_CONFIG_ERROR.subTitle}
+      />
+    );
+  }
+
+  return <GitProfileContent sanitizedConfig={sanitizedConfig} />;
 };
 
 export default GitProfile;

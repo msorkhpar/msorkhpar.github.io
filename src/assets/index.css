@@ -1,6 +1,57 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes:
+    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate',
+    'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
+    'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black',
+    'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade',
+    'night', 'coffee', 'winter', 'dim', 'nord', 'sunset', 'caramellatte',
+    'abyss', 'silk', 'procyon';
+}
+
+/* procyon, with this site's colors: the dark theme with a green primary
+   that the old `themeConfig.customTheme` produced under daisyUI v4. */
+@plugin "daisyui/theme" {
+  name: 'procyon';
+  color-scheme: dark;
+
+  --color-base-100: oklch(24.1877% 0.011353 285.520249);
+  --color-base-200: oklch(22.4946% 0.010558 285.520249);
+  --color-base-300: oklch(20.8015% 0.009764 285.520249);
+  --color-base-content: oklch(84.8375% 0.002271 285.520249);
+  --color-primary: oklch(77.0993% 0.160268 143.016479);
+  --color-primary-content: oklch(15.4199% 0.032054 143.016479);
+  --color-secondary: #219aaf;
+  --color-secondary-content: #ffffff;
+  --color-accent: #e8d03a;
+  --color-accent-content: #2a2730;
+  --color-neutral: #2a2730;
+  --color-neutral-content: #ffffff;
+  --color-info: oklch(72.06% 0.191 231.6);
+  --color-info-content: #000000;
+  --color-success: oklch(64.8% 0.15 160);
+  --color-success-content: #000000;
+  --color-warning: oklch(84.71% 0.199 83.87);
+  --color-warning-content: #000000;
+  --color-error: oklch(71.76% 0.221 22.18);
+  --color-error-content: #000000;
+
+  /* border radius */
+  --radius-selector: 1.9rem;
+  --radius-field: 1rem;
+  --radius-box: 1rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
+}
 
 * {
   scrollbar-width: thin;
@@ -28,20 +79,16 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.text-base-content-important {
-  color: hsla(var(--bc) / var(--tw-text-opacity)) !important;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 svg {

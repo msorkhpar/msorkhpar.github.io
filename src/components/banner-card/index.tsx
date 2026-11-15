@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import { FALLBACK_IMAGE } from '../../constants';
 import { Banner } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';

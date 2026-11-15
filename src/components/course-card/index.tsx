@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { MdOutlineSchool } from 'react-icons/md';
 import LazyImage from '../lazy-image';
 import { ga, skeleton } from '../../utils';
 import { SanitizedCourses } from '../../interfaces/sanitized-config';
@@ -14,7 +15,7 @@ const CourseCard = ({
 }) => {
   const renderSkeleton = () =>
     courses.items.map((_, index) => (
-      <div className="card shadow-lg compact bg-base-100" key={index}>
+      <div className="card shadow-md card-sm bg-base-100" key={index}>
         <div className="p-6 h-full w-full">
           {skeleton({ widthCls: 'w-3/4', heightCls: 'h-6', className: 'mb-4' })}
           {skeleton({
@@ -36,7 +37,7 @@ const CourseCard = ({
   const renderCourses = () =>
     courses.items.map((item, index) => (
       <a
-        className="card shadow-lg compact bg-base-100 cursor-pointer hover:shadow-xl transition-shadow"
+        className="card shadow-md card-sm bg-base-100 cursor-pointer hover:shadow-xl transition-shadow"
         key={index}
         href={item.link}
         onClick={() => {
@@ -64,9 +65,7 @@ const CourseCard = ({
             {item.title}
           </h2>
           {item.description && (
-            <p className="text-base-content text-opacity-70 text-sm">
-              {item.description}
-            </p>
+            <p className="text-base-content/70 text-sm">{item.description}</p>
           )}
           {(item.topics.length > 0 || item.note) && (
             <div className="mt-auto pt-4">
@@ -83,7 +82,7 @@ const CourseCard = ({
                 </div>
               )}
               {item.note && (
-                <p className="mt-4 text-xs italic text-base-content text-opacity-50">
+                <p className="mt-4 text-xs italic text-base-content/50">
                   {item.note}
                 </p>
               )}
@@ -96,28 +95,34 @@ const CourseCard = ({
   return (
     <Fragment>
       <div className="col-span-1 lg:col-span-2">
-        <div className="card compact bg-base-100 shadow bg-opacity-40">
-          <div className="card-body">
-            <div className="mx-3 mb-2">
-              <h5 className="card-title">
-                {loading ? (
-                  skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
-                ) : (
-                  <span className="text-base-content opacity-70">
-                    {courses.header}
-                  </span>
-                )}
-              </h5>
-              {courses.intro &&
-                (loading ? (
-                  <div className="mt-2">
-                    {skeleton({ widthCls: 'w-full', heightCls: 'h-4' })}
+        <div className="card bg-base-200 shadow-xl border border-base-300">
+          <div className="card-body p-8">
+            <div className="flex items-start space-x-3 mb-8">
+              {loading ? (
+                skeleton({
+                  widthCls: 'w-12',
+                  heightCls: 'h-12',
+                  className: 'rounded-xl',
+                })
+              ) : (
+                <div className="flex items-center justify-center w-12 h-12 shrink-0 bg-primary/10 rounded-xl">
+                  <MdOutlineSchool className="text-2xl" />
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <h3 className="text-base sm:text-lg font-bold text-base-content">
+                  {loading
+                    ? skeleton({ widthCls: 'w-48', heightCls: 'h-8' })
+                    : courses.header}
+                </h3>
+                {courses.intro && (
+                  <div className="text-base-content/60 text-xs sm:text-sm mt-1">
+                    {loading
+                      ? skeleton({ widthCls: 'w-full', heightCls: 'h-4' })
+                      : courses.intro}
                   </div>
-                ) : (
-                  <p className="mt-2 text-base-content text-opacity-70 text-sm">
-                    {courses.intro}
-                  </p>
-                ))}
+                )}
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {loading ? renderSkeleton() : renderCourses()}

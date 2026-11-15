@@ -97,7 +97,7 @@ const CONFIG = {
   },
   social: {
     linkedin: 'msorkhpar',
-    twitter: '',
+    x: '',
     mastodon: '',
     researchGate: '',
     googleScholar: { name: 'Mo Sorkhpar', user: '1M5LFmIAAAAJ' },
@@ -112,7 +112,7 @@ const CONFIG = {
     medium: '',
     dev: '',
     stackoverflow: '', // example: '1/jeff-atwood'
-    skype: '',
+    discord: '',
     telegram: '',
     website: '',
     phone: '',
@@ -379,10 +379,7 @@ const CONFIG = {
     id: 'G-RJ2GES11E6', // GA3 tracking id/GA4 tag id UA-XXXXXXXXX-X | G-XXXXXXXXXX
   },
   // Track visitor interaction and behavior. https://www.hotjar.com
-  hotjar: {
-    id: '',
-    snippetVersion: 6,
-  },
+  hotjar: { id: '', snippetVersion: 6 },
   themeConfig: {
     defaultTheme: 'procyon',
 
@@ -431,17 +428,13 @@ const CONFIG = {
       'dim',
       'nord',
       'sunset',
+      'caramellatte',
+      'abyss',
+      'silk',
       'procyon',
     ],
 
-    // Custom theme, applied to `procyon` theme
-    customTheme: {
-      primary: 'rgba(113,206,109,0.68)',
-      'base-100': 'rgba(31,31,37,0.09)',
-      'base-400': 'rgba(233,233,253,0.09)',
-      '--rounded-box': '1rem',
-      '--rounded-btn': '1rem',
-    },
+    // The procyon colors live in src/assets/index.css (daisyUI v5 theme).
   },
 
   // Optional Footer. Supports plain text or HTML.
