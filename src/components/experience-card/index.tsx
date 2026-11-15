@@ -74,7 +74,7 @@ const ExperienceCard = ({
     return array;
   };
   return (
-    <div className="card shadow-lg compact bg-base-100">
+    <div className="card shadow-lg card-sm bg-base-100">
       <div className="card-body">
         <div className="mx-3">
           <h5 className="card-title">
@@ -87,7 +87,7 @@ const ExperienceCard = ({
             )}
           </h5>
         </div>
-        <div className="text-base-content text-opacity-85">
+        <div className="text-base-content/85">
           <ol className="relative border-base-300 border-opacity-30 my-2 mx-4">
             {loading ? (
               renderSkeleton()

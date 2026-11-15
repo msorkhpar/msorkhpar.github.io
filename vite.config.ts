@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
-import CONFIG from './gitprofile.config';
+import CONFIG from './gitprofile.config.ts';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 CONFIG.clarity.id = process.env.CLARITY_ID
@@ -36,6 +36,16 @@ export default defineConfig({
                           })(window, document, 'clarity', 'script', '` +
             CONFIG.clarity.id +
             `');</script>`,
+          googleAnalyticsScript: CONFIG.googleAnalytics.id
+            ? `<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.googleAnalytics.id}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${CONFIG.googleAnalytics.id}');
+</script>`
+            : '',
         },
       },
     }),

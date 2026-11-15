@@ -14,20 +14,14 @@ import {
   FaLinkedin,
   FaMastodon,
   FaReddit,
-  FaSkype,
   FaStackOverflow,
   FaTelegram,
   FaYoutube,
 } from 'react-icons/fa';
 import { FaSquareThreads } from 'react-icons/fa6';
 import { MdLocationOn } from 'react-icons/md';
-import { RiMailFill, RiPhoneFill } from 'react-icons/ri';
-import {
-  SiResearchgate,
-  SiTwitter,
-  SiUdemy,
-  SiGooglescholar,
-} from 'react-icons/si';
+import { RiDiscordFill, RiMailFill, RiPhoneFill } from 'react-icons/ri';
+import { SiGooglescholar, SiResearchgate, SiX, SiUdemy } from 'react-icons/si';
 import { Profile } from '../../interfaces/profile';
 import {
   SanitizedGithub,
@@ -72,12 +66,12 @@ const ListItem: React.FC<{
 }> = ({ icon, title, value, link, skeleton = false }) => {
   return (
     <div className="flex justify-start py-2 px-1 items-center">
-      <div className="flex-grow font-medium gap-2 flex items-center my-1">
+      <div className="grow font-medium gap-2 flex items-center my-1">
         {icon} {title}
       </div>
       <div
         className={`${
-          skeleton ? 'flex-grow' : ''
+          skeleton ? 'grow' : ''
         } text-sm font-normal text-right mr-2 ml-3 ${link ? 'truncate' : ''}`}
         style={{
           wordBreak: 'break-word',
@@ -130,12 +124,12 @@ const OrganizationItem: React.FC<{
 
   return (
     <div className="flex justify-start py-2 px-1 items-center">
-      <div className="flex-grow font-medium gap-2 flex items-center my-1">
+      <div className="grow font-medium gap-2 flex items-center my-1">
         {icon} {title}
       </div>
       <div
         className={`${
-          skeleton ? 'flex-grow' : ''
+          skeleton ? 'grow' : ''
         } text-sm font-normal text-right mr-2 ml-3 space-x-2 ${link ? 'truncate' : ''}`}
         style={{
           wordBreak: 'break-word',
@@ -175,9 +169,9 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
   };
 
   return (
-    <div className="card shadow-lg compact bg-base-100">
+    <div className="card shadow-lg card-sm bg-base-100">
       <div className="card-body">
-        <div className="text-base-content text-opacity-80">
+        <div className="text-base-content/80">
           {loading || !profile ? (
             renderSkeleton()
           ) : (
@@ -223,12 +217,12 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
                   link={`https://scholar.google.com/citations?user=${social.googleScholar.user}`}
                 />
               )}
-              {social?.twitter && (
+              {social?.x && (
                 <ListItem
-                  icon={<SiTwitter />}
-                  title="Twitter:"
-                  value={social.twitter}
-                  link={`https://twitter.com/${social.twitter}`}
+                  icon={<SiX />}
+                  title="X:"
+                  value={social.x}
+                  link={`https://x.com/${social.x}`}
                 />
               )}
               {social?.mastodon && (
@@ -349,14 +343,6 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
                   }
                 />
               )}
-              {social?.skype && (
-                <ListItem
-                  icon={<FaSkype />}
-                  title="Skype"
-                  value={social.skype}
-                  link={`skype:${social.skype}?chat`}
-                />
-              )}
               {social?.telegram && (
                 <ListItem
                   icon={<FaTelegram />}
@@ -379,6 +365,14 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
                   title="Email:"
                   value={social.email}
                   link={`mailto:${social.email}`}
+                />
+              )}
+              {social?.discord && (
+                <ListItem
+                  icon={<RiDiscordFill />}
+                  title="Discord:"
+                  value={social.discord}
+                  link={`https://discord.com/app`}
                 />
               )}
             </Fragment>

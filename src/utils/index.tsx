@@ -1,6 +1,7 @@
+import React from 'react';
 import { hotjar } from 'react-hotjar';
 import { LOCAL_STORAGE_KEY_NAME } from '../constants';
-import { DEFAULT_CUSTOM_THEME } from '../constants/default-custom-theme';
+
 import { DEFAULT_THEMES } from '../constants/default-themes';
 import colors from '../data/colors.json';
 import {
@@ -63,7 +64,7 @@ export const getSanitizedConfig = (
       },
       social: {
         linkedin: config?.social?.linkedin,
-        twitter: config?.social?.twitter,
+        x: config?.social?.x,
         mastodon: config?.social?.mastodon,
         facebook: config?.social?.facebook,
         instagram: config?.social?.instagram,
@@ -79,10 +80,10 @@ export const getSanitizedConfig = (
         website: config?.social?.website,
         phone: config?.social?.phone,
         email: config?.social?.email,
-        skype: config?.social?.skype,
         telegram: config?.social?.telegram,
         researchGate: config?.social?.researchGate,
         googleScholar: config?.social?.googleScholar,
+        discord: config?.social?.discord,
       },
       resume: {
         fileUrl: config?.resume?.fileUrl || '',
@@ -148,34 +149,11 @@ export const getSanitizedConfig = (
           config?.themeConfig?.respectPrefersColorScheme || false,
         displayAvatarRing: config?.themeConfig?.displayAvatarRing ?? true,
         themes: config?.themeConfig?.themes || DEFAULT_THEMES,
-        customTheme: {
-          primary:
-            config?.themeConfig?.customTheme?.primary ||
-            DEFAULT_CUSTOM_THEME.primary,
-          secondary:
-            config?.themeConfig?.customTheme?.secondary ||
-            DEFAULT_CUSTOM_THEME.secondary,
-          accent:
-            config?.themeConfig?.customTheme?.accent ||
-            DEFAULT_CUSTOM_THEME.accent,
-          neutral:
-            config?.themeConfig?.customTheme?.neutral ||
-            DEFAULT_CUSTOM_THEME.neutral,
-          'base-100':
-            config?.themeConfig?.customTheme?.['base-100'] ||
-            DEFAULT_CUSTOM_THEME['base-100'],
-          '--rounded-box':
-            config?.themeConfig?.customTheme?.['--rounded-box'] ||
-            DEFAULT_CUSTOM_THEME['--rounded-box'],
-          '--rounded-btn':
-            config?.themeConfig?.customTheme?.['--rounded-btn'] ||
-            DEFAULT_CUSTOM_THEME['--rounded-btn'],
-        },
       },
       footer: config?.footer,
       enablePWA: config?.enablePWA ?? true,
     };
-  } catch (error) {
+  } catch {
     return {};
   }
 };
@@ -187,7 +165,7 @@ export const getInitialTheme = (themeConfig: SanitizedThemeConfig): string => {
 
   if (
     typeof window !== 'undefined' &&
-    !(localStorage.getItem(LOCAL_STORAGE_KEY_NAME) === null)
+    localStorage.getItem(LOCAL_STORAGE_KEY_NAME) !== null
   ) {
     const savedTheme = localStorage.getItem(LOCAL_STORAGE_KEY_NAME);
 
@@ -218,7 +196,7 @@ export const skeleton = ({
   style?: React.CSSProperties;
   shape?: string;
   className?: string | null;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const classNames = ['bg-base-300', 'animate-pulse', shape];
   if (className) {
     classNames.push(className);
