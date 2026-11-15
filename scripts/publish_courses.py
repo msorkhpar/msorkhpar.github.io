@@ -16,12 +16,18 @@ copied HTML page:
   - Google Analytics, with the id from googleAnalytics.id in
     gitprofile.config.ts (the main site adds it at runtime in
     src/components/head-tag-editor).
+Each page also gets <meta name="studyforge:repository"> naming its course's
+GitHub repository (read from the checkout's origin), so the course's "Run
+locally" clone command and its README and source links work on this domain:
+studyforge's page script only finds the repository by itself on
+<owner>.github.io addresses.
 The course repositories stay untouched, so the copies people download and run
 locally carry no tracking.
 """
 import os
 import re
 import shutil
+import subprocess
 import sys
 
 from generate_sitemap import pages_site_dir, run_pages_build
@@ -63,6 +69,23 @@ def google_analytics_id():
     if not found:
         sys.exit("gitprofile.config.ts: googleAnalytics.id not found")
     return found.group(2).strip()
+
+
+REPO_HINT = "studyforge:repository"
+
+
+def course_repository(course_dir):
+    """https://github.com/<owner>/<repo> of the course checkout's origin, or None."""
+    try:
+        origin = subprocess.check_output(
+            ["git", "-C", course_dir, "remote", "get-url", "origin"], text=True
+        ).strip()
+    except subprocess.CalledProcessError:
+        return None
+    found = re.fullmatch(
+        r"(?:https://github\.com/|git@github\.com:)([\w.-]+)/([\w.-]+?)(?:\.git)?/?", origin
+    )
+    return f"https://github.com/{found.group(1)}/{found.group(2)}" if found else None
 
 
 def add_tags(site_dir, tags):
@@ -117,7 +140,15 @@ def main():
         if os.path.exists(target):
             sys.exit(f"{target} already exists in the build; refusing to overwrite it")
         shutil.copytree(site, target)
-        for marker, count in add_tags(target, tags).items():
+        course_tags = list(tags)
+        repository = course_repository(course_dir)
+        if repository:
+            course_tags.append(
+                (f'name="{REPO_HINT}"', f'<meta name="{REPO_HINT}" content="{repository}">\n')
+            )
+        else:
+            print("  origin is not a GitHub repository: no repository hint")
+        for marker, count in add_tags(target, course_tags).items():
             print(f"  {marker}: added to {count} pages")
 
 
