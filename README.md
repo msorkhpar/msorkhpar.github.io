@@ -81,21 +81,21 @@ These instructions will get you a copy of the project and deploy your portfolio 
 - **Fork repo:** Click [here](https://github.com/arifszn/gitprofile/fork) to fork the repo so you have your own project
   to customize. A "fork" is a copy of a repository.
 - **Rename repo:**
-    - If you want to host your portfolio at `https://<USERNAME>.github.io`, rename your forked repository
-      to `username.github.io` in GitHub, where `username` is your GitHub username (or organization name).
-    - If you want to host your portfolio at `https://<USERNAME>.github.io/<REPO_NAME>` (
-      e.g. `https://<USERNAME>.github.io/portfolio`), rename your forked repository to `<REPO_NAME>` (e.g. `portfolio`)
-      in GitHub.
+  - If you want to host your portfolio at `https://<USERNAME>.github.io`, rename your forked repository
+    to `username.github.io` in GitHub, where `username` is your GitHub username (or organization name).
+  - If you want to host your portfolio at `https://<USERNAME>.github.io/<REPO_NAME>` (
+    e.g. `https://<USERNAME>.github.io/portfolio`), rename your forked repository to `<REPO_NAME>` (e.g. `portfolio`)
+    in GitHub.
 - **Enable workflows:** Go to your repo's **Actions** tab and enable workflows.
 
   ![Workflows](https://github.com/arifszn/gitprofile/assets/45073703/7e82f7d4-900c-4cb9-83f9-bcaa1ca2b910)
 
 - **Base Value:** Open `gitprofile.config.ts`, and change `base`'s value.
 
-    - If you are deploying to `https://<USERNAME>.github.io`, set `base` to `'/'`.
+  - If you are deploying to `https://<USERNAME>.github.io`, set `base` to `'/'`.
 
-    - If you are deploying to `https://<USERNAME>.github.io/<REPO_NAME>` (
-      e.g. `https://<USERNAME>.github.io/portfolio`), then set `base` to `'/<REPO_NAME>/'` (e.g. `'/portfolio/'`).
+  - If you are deploying to `https://<USERNAME>.github.io/<REPO_NAME>` (
+    e.g. `https://<USERNAME>.github.io/portfolio`), then set `base` to `'/<REPO_NAME>/'` (e.g. `'/portfolio/'`).
 
   ```ts
   // gitprofile.config.ts
@@ -111,11 +111,11 @@ These instructions will get you a copy of the project and deploy your portfolio 
 
 Your portfolio website will be live shortly. Any time you commit a change to the **main** branch, the website will be
 automatically updated. If you face any issue viewing the website, double-check the `base` value in
-the `gitprofile.config.ts` file. Also, check if **Source** is set to **GitHub Actions** in **Settings** ➜ **Pages** ➜ *
-*Build and deployment**.
+the `gitprofile.config.ts` file. Also, check if **Source** is set to **GitHub Actions** in **Settings** ➜ **Pages** ➜
+**Build and deployment**.
 
-If you wish to add a custom domain, no CNAME file is required. Just add it to your repo's **Settings** ➜ **Pages** ➜ *
-*Custom domain**.
+If you wish to add a custom domain, no CNAME file is required. Just add it to your repo's **Settings** ➜ **Pages** ➜
+**Custom domain**.
 
 As this is a Vite project, you can also host your website to Netlify, Vercel, Heroku, or other popular services. Please
 refer to this [doc](https://vitejs.dev/guide/static-deploy.html) for a detailed deployment guide to other services.

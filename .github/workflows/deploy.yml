@@ -7,10 +7,10 @@ on:
   # Manual "Run workflow" button in the Actions tab.
   workflow_dispatch:
 
-  # Rebuild weekly (Monday 06:17 UTC) so course changes reach the sitemap
-  # without touching this repo.
+  # Rebuild daily (06:17 UTC): the courses are served from this site, so
+  # their changes go live without touching this repo.
   schedule:
-    - cron: '17 6 * * 1'
+    - cron: '17 6 * * *'
 
   # Lets a course repo trigger a rebuild right after it changes (optional).
   repository_dispatch:
@@ -24,6 +24,14 @@ permissions:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  # Course repositories published at https://sorkhpar.dev/<repo>/
+  COURSES: >-
+    ISO-8583-jPOS-tutorial
+    Claude-Certification-Preparation-Developer-to-Architect
+    integer-programming-google-or-tools
+    Claude-senior-java-engineer
 
 jobs:
   build:
@@ -54,10 +62,7 @@ jobs:
       - name: Check out course repositories
         run: |
           mkdir -p ../courses
-          for repo in ISO-8583-jPOS-tutorial \
-                      Claude-Certification-Preparation-Developer-to-Architect \
-                      integer-programming-google-or-tools \
-                      Claude-senior-java-engineer; do
+          for repo in $COURSES; do
             git clone --depth 1 "https://github.com/msorkhpar/$repo.git" "../courses/$repo"
           done
 
@@ -67,15 +72,22 @@ jobs:
         run: |
           python3 -m pip install --quiet pyyaml
           python3 scripts/generate_sitemap.py public/sitemap.xml . \
-            ../courses/ISO-8583-jPOS-tutorial \
-            ../courses/Claude-Certification-Preparation-Developer-to-Architect \
-            ../courses/integer-programming-google-or-tools \
-            ../courses/Claude-senior-java-engineer
+            $(printf '../courses/%s ' $COURSES)
 
       - name: Build with vite
         run: |
           echo "CLARITY_ID=${{ vars.CLARITY_ID }}" >> .env
           CLARITY_ID=${{ vars.CLARITY_ID }} npm run build
+
+      # Copies each course's published site into dist/<repo>/ and adds the
+      # Clarity and Google Analytics tags. The course repos themselves stay
+      # tracking-free.
+      - name: Add courses to the site
+        env:
+          CLARITY_ID: ${{ vars.CLARITY_ID }}
+        run: |
+          python3 scripts/publish_courses.py dist \
+            $(printf '../courses/%s ' $COURSES)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

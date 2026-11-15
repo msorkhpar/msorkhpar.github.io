@@ -83,6 +83,55 @@ interface ExternalProjects {
   }[];
 }
 
+interface Course {
+  /**
+   * Course title
+   */
+  title: string;
+
+  /**
+   * What the course covers
+   */
+  description?: string;
+
+  /**
+   * Topic chips shown under the description
+   */
+  topics?: Array<string>;
+
+  /**
+   * Where the course is served, e.g. '/my-course/'
+   */
+  link: string;
+
+  /**
+   * Small note under the topics, e.g. a disclaimer
+   */
+  note?: string;
+
+  /**
+   * Optional picture for the card
+   */
+  imageUrl?: string;
+}
+
+interface Courses {
+  /**
+   * Header
+   */
+  header?: string;
+
+  /**
+   * Short text under the header
+   */
+  intro?: string;
+
+  /**
+   * Course list. To hide the section, keep it empty.
+   */
+  items?: Array<Course>;
+}
+
 interface Projects {
   github?: GitHubProjects;
 
@@ -328,17 +377,17 @@ interface CustomTheme {
   /**
    * Base color of page
    */
-  "base-100"?: string;
+  'base-100'?: string;
 
   /**
    * Border radius of rounded-box
    */
-  "--rounded-box"?: string;
+  '--rounded-box'?: string;
 
   /**
    * Border radius of rounded-btn
    */
-  "--rounded-btn"?: string;
+  '--rounded-btn'?: string;
 }
 
 interface ThemeConfig {
@@ -428,6 +477,11 @@ interface Config {
    * Publication list
    */
   publications?: Array<Publication>;
+
+  /**
+   * Courses section
+   */
+  courses?: Courses;
 
   /**
    * Resume

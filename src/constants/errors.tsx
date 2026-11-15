@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
 export interface CustomError {
   status: number;
@@ -8,21 +8,21 @@ export interface CustomError {
 
 export const INVALID_CONFIG_ERROR: CustomError = {
   status: 500,
-  title: "Invalid Config!",
+  title: 'Invalid Config!',
   subTitle: (
     <p>
       Please provide correct config in <code>gitprofile.config.ts</code>.
     </p>
-  )
+  ),
 };
 
 export const setTooManyRequestError = (resetTime: string): CustomError => {
   return {
     status: 429,
-    title: "Too Many Requests!",
+    title: 'Too Many Requests!',
     subTitle: (
       <p>
-        Oh no, you hit the{" "}
+        Oh no, you hit the{' '}
         <a
           href="https://developer.github.com/v3/rate_limit/"
           target="_blank"
@@ -33,23 +33,23 @@ export const setTooManyRequestError = (resetTime: string): CustomError => {
         </a>
         ! Try again later{` ${resetTime}`}.
       </p>
-    )
+    ),
   };
 };
 
 export const INVALID_GITHUB_USERNAME_ERROR: CustomError = {
   status: 404,
-  title: "Invalid GitHub Username!",
+  title: 'Invalid GitHub Username!',
   subTitle: (
     <p>
-      Please provide correct github username in{" "}
+      Please provide correct github username in{' '}
       <code>gitprofile.config.ts</code>.
     </p>
-  )
+  ),
 };
 
 export const GENERIC_ERROR: CustomError = {
   status: 500,
-  title: "Oops!!",
-  subTitle: "Something went wrong."
+  title: 'Oops!!',
+  subTitle: 'Something went wrong.',
 };

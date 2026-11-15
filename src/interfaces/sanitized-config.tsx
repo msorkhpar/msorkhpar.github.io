@@ -31,6 +31,22 @@ export interface SanitizedExternalProjects {
   projects: SanitizedExternalProject[];
 }
 
+export interface SanitizedCourse {
+  title: string;
+  description: string;
+  topics: string[];
+  link: string;
+  note?: string;
+  imageUrl?: string;
+}
+
+export interface SanitizedCourses {
+  display: boolean;
+  header: string;
+  intro: string;
+  items: SanitizedCourse[];
+}
+
 export interface SanitizedProjects {
   github: SanitizedGitHubProjects;
   external: SanitizedExternalProjects;
@@ -134,9 +150,9 @@ export interface SanitizedCustomTheme {
   secondary: string;
   accent: string;
   neutral: string;
-  "base-100": string;
-  "--rounded-box": string;
-  "--rounded-btn": string;
+  'base-100': string;
+  '--rounded-box': string;
+  '--rounded-btn': string;
 }
 
 export interface SanitizedThemeConfig {
@@ -160,6 +176,7 @@ export interface SanitizedConfig {
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;
   publications: Array<SanitizedPublication>;
+  courses: SanitizedCourses;
   googleAnalytics: SanitizedGoogleAnalytics;
   hotjar: SanitizedHotjar;
   blog: SanitizedBlog;

@@ -6,8 +6,5 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "gitprofile.config.ts",
-    "vite.config.ts"
-  ]
+  "include": ["gitprofile.config.ts", "vite.config.ts"]
 }

@@ -54,6 +54,18 @@ def find_pages_job(course_dir):
     sys.exit(f"No GitHub Pages workflow found in {wf_dir}")
 
 
+def pages_site_dir(course_dir):
+    """Return the folder the course's Pages workflow uploads, without building it."""
+    wf_name, job = find_pages_job(course_dir)
+    for step in job["steps"]:
+        if "upload-pages-artifact" in str(step.get("uses", "")):
+            site = (step.get("with") or {}).get("path", "_site")
+            if "${{" in site:
+                sys.exit(f"{wf_name}: cannot resolve Pages path {site!r}")
+            return os.path.join(course_dir, site)
+    sys.exit(f"{wf_name}: no Pages upload step")
+
+
 def run_pages_build(course_dir):
     """Run the `run:` steps of the course's Pages job, in order, exactly as its
     GitHub Action does, and return the folder it uploads to Pages."""
