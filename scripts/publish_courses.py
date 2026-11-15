@@ -57,10 +57,12 @@ gtag('config', '%(id)s');
 def google_analytics_id():
     """googleAnalytics.id from gitprofile.config.ts, or "" when unset."""
     with open(os.path.join(REPO_ROOT, "gitprofile.config.ts"), encoding="utf-8") as fh:
-        found = re.search(r'googleAnalytics:\s*{\s*id:\s*"([^"]*)"', fh.read())
+        found = re.search(
+            r"googleAnalytics:\s*{\s*id:\s*(['\"])(.*?)\1", fh.read()
+        )
     if not found:
         sys.exit("gitprofile.config.ts: googleAnalytics.id not found")
-    return found.group(1).strip()
+    return found.group(2).strip()
 
 
 def add_tags(site_dir, tags):
