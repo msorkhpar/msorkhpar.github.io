@@ -27,10 +27,11 @@ const CONFIG = {
         // Properties for manually specifying projects
         projects: [
           'msorkhpar/wiki-entity-summarization',
-          'msorkhpar/wiki-entity-summarization-preprocessor',
           'msorkhpar/wiki-entity-summarization-toolkit',
-          'msorkhpar/neo4j-bootcamp',
+          'msorkhpar/studyforge',
           'msorkhpar/energy-barrier-problem',
+          'msorkhpar/Claude-Certification-Preparation-Developer-to-Architect',
+          'msorkhpar/ISO-8583-jPOS-tutorial',
         ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
